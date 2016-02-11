@@ -1,0 +1,38 @@
+{
+  "name": "gulp-asset-pipeline",
+  "version": "0.1.0",
+  "description": "a simple, opinionated tool based on gulp to build your assets in an efficient manner.",
+  "main": "index.js",
+  "keywords": [
+    "gulp",
+    "asset pipeline",
+    "asset",
+    "pipeline"
+  ],
+  "author": "Tom Rochette <tom.rochette@coreteks.org> (https://www.coreteks.org/)",
+  "license": "MIT",
+  "dependencies": {
+    "chai": "^3.5.0",
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-debug": "^2.1.2",
+    "gulp-if": "^2.0.0",
+    "gulp-load-plugins": "^1.2.0",
+    "gulp-mocha": "^2.2.0",
+    "gulp-more-css": "^1.0.0",
+    "gulp-newer": "^1.1.0",
+    "gulp-sass": "^2.2.0",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-tslint": "^4.3.1",
+    "gulp-typescript": "^2.10.0",
+    "gulp-uglify": "^1.5.1",
+    "gulp-util": "^3.0.7",
+    "gulp-watch": "^4.3.5",
+    "lodash": "^4.2.1",
+    "mocha": "^2.4.5",
+    "require-dir": "^0.3.0",
+    "run-sequence": "^1.1.5",
+    "sinon": "^1.17.3",
+    "tslint": "^3.3.0"
+  }
+}
