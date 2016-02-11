@@ -11,9 +11,9 @@ In your gulpfile.js
 var config = require('gulp-asset-pipeline/config');
 
 // Your own configuration
-var sourceAssets = './assets';
-var bowerComponentsAssets = './bower_components';
-var publicAssets = './public/assets';
+var sourceAssets = 'assets';
+var bowerComponentsAssets = 'bower_components';
+var publicAssets = 'public/assets';
 
 config.sass = {
 	app: {
