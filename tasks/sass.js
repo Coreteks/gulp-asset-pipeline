@@ -30,3 +30,7 @@ _.forEach(bundles, function(bundle, key) {
 			.pipe(gulp.dest(bundle.dest));
 	});
 });
+
+module.exports = {
+	taskName: taskName,
+};

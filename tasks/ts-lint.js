@@ -10,7 +10,7 @@ let taskName = function(bundle) {
 	return prefix + '-' + bundle.name;
 };
 
-let bundles = _.filter(config.js, { shouldLint: true});
+let bundles = _.filter(config.ts, { shouldLint: true});
 
 gulp.task(prefix, _.map(bundles, function(bundle) {
 	return taskName(bundle);
@@ -23,3 +23,7 @@ _.forEach(bundles, function(bundle, key) {
 			.pipe($.tslint.report('prose'));
 	});
 });
+
+module.exports = {
+	taskName: taskName,
+};
