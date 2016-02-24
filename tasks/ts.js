@@ -2,6 +2,7 @@
 let gulp = require('gulp');
 let config = require('../config');
 let $ = require('gulp-load-plugins')();
+let webpack = require('webpack-stream');
 let _ = require('lodash');
 let fs = require('fs');
 let path = require('path');
@@ -27,15 +28,47 @@ if (fs.existsSync(tsConfigFilename)) {
 
 _.forEach(bundles, function(bundle, key) {
 	gulp.task(taskName(bundle), function() {
-		return gulp.src(bundle.src)
-			.pipe($.newer(path.resolve(bundle.dest, bundle.name)))
+		let tsFiles = gulp.src(bundle.src)
+			//.pipe($.newer(path.resolve(bundle.dest, bundle.name)))
 			.pipe($.if(config.debug, $.debug()))
 			.pipe($.if(bundle.sourcemaps, $.sourcemaps.init()))
 			.pipe($.typescript(tsProject))
-			.pipe($.concat(bundle.name))
-			.pipe($.if(config.production, $.uglify()))
 			.pipe($.if(bundle.sourcemaps, $.sourcemaps.write('.')))
+			.pipe(gulp.dest('./dist'));
+
+		let webpackProductionConfig = {
+			output: {
+				filename: bundle.name,
+			},
+			resolve: {
+				extensions: ['', '.webpack.js', '.web.js', '.ts', '.tsx', '.js']
+			},
+		};
+
+		let webpackDevConfig = _.extend({
+			devtool: 'source-map',
+			module: {
+				preLoaders: [
+					{
+						test: /.js$/,
+						loader: 'source-map-loader',
+					},
+				],
+			},
+		}, webpackProductionConfig);
+
+		let outputJs = tsFiles
+			.pipe($.filter('**/*.js'))
+			.pipe($.if(config.debug, $.debug()))
+			.pipe(webpack($.if(config.production, webpackProductionConfig, webpackDevConfig)))
 			.pipe(gulp.dest(bundle.dest));
+
+		if (config.production) {
+			outputJs.pipe($.filter('**/*.js'))
+				.pipe($.if(config.debug, $.debug()))
+				.pipe($.uglify())
+				.pipe(gulp.dest(bundle.dest));
+		}
 	});
 });
 
